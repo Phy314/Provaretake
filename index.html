@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -7,8 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     
-    <!-- SCRIPT TELEGRAM WEB APP AGGIUNTO -->
-    <!-- Questo script permette alla tua pagina di comunicare con Telegram -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
     <script>
@@ -94,7 +92,7 @@
 
     <main id="app-container" class="bg-white dark:bg-slate-800/50 backdrop-blur-sm w-full max-w-[520px] rounded-2xl shadow-2xl shadow-indigo-500/10 overflow-hidden relative">
 
-        <div id="loader" class="flex items-center justify-center">
+        <div id="loader" class="flex items-center justify-center" style="display: flex;">
             <svg class="animate-spin h-8 w-8 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -131,7 +129,6 @@
                         <i data-lucide="shield-check" class="w-5 h-5"></i> Validatore
                     </button>
                     <hr class="my-6 border-slate-200 dark:border-slate-700">
-                    <!-- MODIFICATO: Aggiunto id="master-dashboard-btn" e la classe "hidden" -->
                     <button id="master-dashboard-btn" data-view="master-dashboard" class="hidden w-full border-2 border-slate-500 text-slate-500 hover:bg-slate-500 hover:text-white font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2">
                         <i data-lucide="eye" class="w-5 h-5"></i> Accesso Master (Solo Visione)
                     </button>
@@ -146,7 +143,7 @@
                     <input type="email" id="login-email" placeholder="Email" class="w-full p-3 bg-slate-100 dark:bg-slate-700 rounded-xl border-2 border-transparent focus:border-indigo-500 focus:outline-none" required>
                     <input type="password" id="login-password" placeholder="Password" class="w-full p-3 bg-slate-100 dark:bg-slate-700 rounded-xl border-2 border-transparent focus:border-indigo-500 focus:outline-none" required>
                     <p id="login-error" class="text-red-500 text-sm hidden"></p>
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl transition-transform transform hover:scale-105">ACCEDI</button>
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl transition-transform transform hover:scale-105">ACCEDI</A></button>
                 </form>
                 <div class="mt-4 text-center">
                     <button data-view="register-choice" class="text-sm text-indigo-500 hover:underline">Non hai un account? Registrati</button>
@@ -234,7 +231,7 @@
                  <button data-view="profile" class="mb-6 text-slate-500 hover:text-indigo-500 flex items-center gap-2"><i data-lucide="arrow-left" class="w-4 h-4"></i> Torna alla Dashboard</button>
                 <h2 class="text-2xl font-bold mb-4">Pianifica</h2>
                 <div class="aspect-video w-full rounded-xl overflow-hidden border-2 border-slate-200 dark:border-slate-700">
-                    <iframe id="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.3059499443!2d-74.25986540376716!3d40.69714942296562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sit!4v1635411756485!5m2!1sen!2sit" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    <iframe id="map-iframe" src="about:blank" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
                 <div id="mission-list-container" class="space-y-3 mt-4 max-h-52 overflow-y-auto pr-2">
                     </div>
@@ -498,15 +495,11 @@
     </main>
 
     <script type="module">
-        // Importa solo le funzioni necessarie dai moduli Firebase per ottimizzare il caricamento
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
         // ===================================================================================
         // 1. CONFIGURAZIONE E INIZIALIZZAZIONE GLOBALE
         // ===================================================================================
-        <!-- ===================================================================================
+        
+        // ===================================================================================
         // INSERISCI IL TUO ID TELEGRAM DA MASTER QUI
         // ===================================================================================
         const MASTER_TELEGRAM_ID = 242942826; // <--- SOSTITUISCI CON IL TUO ID NUMERICO
@@ -524,7 +517,6 @@
         tg.expand(); 
         
         // Puoi accedere ai dati dell'utente Telegram (se disponibili)
-        // Questo è il tuo "User ID" e molto altro!
         const telegramUser = tg.initDataUnsafe?.user;
         
         // Seleziona il pulsante Master
@@ -543,13 +535,6 @@
                 console.log("Accesso MASTER rifiutato.");
                 masterButton.classList.add('hidden'); // Nascondi il pulsante
             }
-            // --- FINE CONTROLLO ---
-            
-            // --- ESEMPIO AVANZATO ---
-            // Potresti usare questi dati per un "login automatico"
-            // Se l'utente Telegram esiste, potresti saltare la schermata di login/registrazione
-            // e creare o recuperare un profilo basato sul telegramUser.id
-            // Per ora, lo mostriamo solo in console.
         } else if (masterButton) {
             console.log("Nessun dato utente Telegram. L'app è aperta fuori da Telegram?");
             masterButton.classList.add('hidden'); // Nascondi se fuori da Telegram
@@ -566,7 +551,7 @@
         // 2. GESTIONE DELLO STATO DELL'APPLICAZIONE (STATE MANAGEMENT)
         // ===================================================================================
         const state = {
-            currentUserProfile: null, // Profilo dell'utente loggato (o mock durante simulazione)
+            currentUserProfile: null, // Profilo dell'utente "loggato" (fittizio)
             registrationRole: '',
             loginRole: '',
             currentScore: 0, // Punteggio XP dell'utente/simulazione corrente
@@ -587,7 +572,7 @@
         };
 
         // ===================================================================================
-        // MOCK_DATA MODIFICATO
+        // MOCK_DATA - IL "DATABASE" FITTIZIO DELL'APP
         // ===================================================================================
         const MOCK_DATA = {
             nfts: [
@@ -601,12 +586,8 @@
             missions: [ // Missioni disponibili
                 {
                     name: 'Area Alpha', color: 'indigo', description: 'Esplorazione in Area Alpha.', lat: 40.7128, lon: -74.0060, street: 'Liberty Island', city: 'New York', country: 'USA', status: 'available',
-                    // ======================================================
-                    // CAMPI AGGIUNTI
-                    // ======================================================
                     maxUsers: 1,
                     participants: [],
-                    // ======================================================
                     objectives: [
                         { id: 1, text: 'Fotografa 5 punti', progress: 0, target: 5, points: 10 },
                         { id: 2, text: 'Raccogli 3 campioni', progress: 0, target: 3, points: 15 }
@@ -614,12 +595,9 @@
                 },
                 {
                     name: 'Area Beta', color: 'violet', description: 'Recupero in Area Beta.', lat: 40.7580, lon: -73.9855, street: 'Times Square', city: 'New York', country: 'USA', status: 'available',
-                    // ======================================================
-                    // CAMPI AGGIUNTI (per testare multi-utente)
-                    // ======================================================
                     maxUsers: 5,
-                    participants: ['Utente Prova 1'], // Già un utente dentro
-                    // ======================================================
+                    // Utente "Reale" è il nome fittizio usato nel mock login
+                    participants: ['Utente Reale'], // Già un utente dentro
                     objectives: [ { id: 3, text: 'Intervista 2 passanti', progress: 0, target: 2, points: 5 } ]
                 }
             ],
@@ -639,14 +617,13 @@
             validationQueue: [ // Coda di validazione (esempio)
                 { id: 201, missionName: 'Area Alpha', objectiveText: 'Fotografa 5 punti', user: 'Utente Collaboratore' } // Nota: user corrisponde al mock
             ],
-            // NUOVO ARRAY per i risultati
             validationResults: [
                 // Esempio: { id: 123, user: 'Utente Collaboratore', objectiveText: 'Test', status: 'approved', points: 5 }
             ],
             globalDonationTotal: 1234, // Totale donazioni globali (esempio)
         };
         // ===================================================================================
-        // FINE MODIFICHE MOCK_DATA
+        // FINE MOCK_DATA
         // ===================================================================================
 
 
@@ -659,10 +636,6 @@
             loader.style.display = show ? 'flex' : 'none';
         };
 
-        // ===================================================================================
-        // FUNZIONE showView CORRETTA
-        // ===================================================================================
-        
         // Mostra una specifica vista (sezione HTML)
         function showView(viewId) {
             document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
@@ -674,6 +647,7 @@
                 if (viewId === 'create-mission-step1') {
                     const backButton = targetView.querySelector('button[data-view]');
                     if (backButton) {
+                        // Se c'è un profilo ed è Sostenitore, torna al profilo, altrimenti torna a master-dashboard
                         const returnView = (state.currentUserProfile && state.currentUserProfile.role === 'Sostenitore') ? 'profile' : 'master-dashboard';
                         backButton.dataset.view = returnView;
                     }
@@ -687,7 +661,7 @@
                 // Aggiorna obiettivi E risultati validazione quando si entra in "missione-in-corso"
                 if (viewId === 'missione-in-corso') {
                     renderActiveMissionObjectives();
-                    renderValidationResults(); // <-- NUOVA CHIAMATA
+                    renderValidationResults(); 
                 }
 
                 if (viewId === 'manage-missions') renderManageMissionsList();
@@ -729,7 +703,7 @@
             const profile = profileData || state.currentUserProfile;
             if (!profile) return;
 
-             // Assicura che totalDonations esista (per utenti reali caricati da DB o simulati)
+             // Assicura che totalDonations esista
             if (profile.totalDonations === undefined) profile.totalDonations = 0;
 
             // Aggiorna dati base
@@ -747,23 +721,24 @@
             // Logica per mostrare/nascondere pulsanti specifici del ruolo
             const creaMissioneBtn = document.getElementById('sostenitore-crea-missione-btn');
             const validaBtn = document.getElementById('validatore-valida-btn');
-
-            if (!state.isSimulating) { // Utente Reale
-                const threshold = parseInt(document.getElementById('donation-threshold').value) || 500;
-                creaMissioneBtn.classList.toggle('hidden', !(profile.role === 'Sostenitore' && profile.totalDonations >= threshold));
-                validaBtn.classList.toggle('hidden', profile.role !== 'Validatore');
-            } else { // Utente Simulato
-                 const threshold = parseInt(document.getElementById('donation-threshold').value) || 500;
+            const threshold = parseInt(document.getElementById('donation-threshold').value) || 500;
+            
+            let userDonations = 0;
+            if (state.isSimulating) { // Utente Simulato
                  // Usa le donazioni DALLO STATO SIMULATO CORRENTE
-                 const simDonations = state.simulatedProfileStates[profile.role]?.totalDonations || 0;
-                 creaMissioneBtn.classList.toggle('hidden', !(profile.role === 'Sostenitore' && simDonations >= threshold));
-                 validaBtn.classList.toggle('hidden', profile.role !== 'Validatore');
+                 userDonations = state.simulatedProfileStates[profile.role]?.totalDonations || 0;
+            } else { // Utente "Reale" (fittizio)
+                userDonations = profile.totalDonations;
             }
+
+            creaMissioneBtn.classList.toggle('hidden', !(profile.role === 'Sostenitore' && userDonations >= threshold));
+            validaBtn.classList.toggle('hidden', profile.role !== 'Validatore');
+
 
             // Aggiorna contatori del profilo (usa dati dallo stato principale se simulato, o dal profilo se reale)
             document.getElementById('profile-hourglass-count').textContent = state.hourglasses;
-            const userDonations = (profile.totalDonations || 0).toLocaleString('it-IT') + ' €';
-            document.getElementById('profile-donation-count').textContent = userDonations;
+            const userDonationsString = (userDonations || 0).toLocaleString('it-IT') + ' €';
+            document.getElementById('profile-donation-count').textContent = userDonationsString;
         }
 
         // Mostra un messaggio di errore in un form specifico
@@ -773,6 +748,15 @@
                 errorEl.textContent = message;
                 errorEl.classList.remove('hidden');
             }
+        }
+        
+        // Nasconde un messaggio di errore
+        function hideFormError(formType) {
+             const errorEl = document.getElementById(`${formType}-error`);
+             if (errorEl) {
+                errorEl.textContent = '';
+                errorEl.classList.add('hidden');
+             }
         }
 
         // ===================================================================================
@@ -887,10 +871,7 @@
                     </div>
                 </div>`);
         }
-
-        // ===================================================================================
-        // MODIFICATO: renderMissionList
-        // ===================================================================================
+        
         // Renderizza la lista delle missioni disponibili nella vista "Pianifica"
         function renderMissionList() {
              renderList('mission-list-container', MOCK_DATA.missions, mission => {
@@ -901,8 +882,8 @@
                 if (state.activeMission && state.activeMission.name === mission.name) {
                      actionButtonHTML = `<button data-view="missione-accettata" data-mission-name="${mission.name}" class="flex-shrink-0 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-3 rounded-lg transition text-xs flex items-center gap-1"><i data-lucide="check-circle" class="w-4 h-4"></i> VAI</button>`;
                 } 
-                // 2. Controlla se l'utente NON ha missioni attive
-                else if (!state.activeMission) {
+                // 2. Controlla se l'utente NON ha missioni attive E C'È UN UTENTE
+                else if (!state.activeMission && state.currentUserProfile) {
                     const isFull = mission.participants.length >= mission.maxUsers;
                     if (isFull) {
                         // Missione piena
@@ -912,7 +893,7 @@
                         actionButtonHTML = `<button data-mission-name="${mission.name}" class="accept-mission-btn flex-shrink-0 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-lg transition text-xs">ACCETTA</button>`;
                     }
                 }
-                // 3. (Implicito) L'utente ha un'ALTRA missione attiva. Nessun pulsante viene mostrato.
+                // 3. (Implicito) L'utente ha un'ALTRA missione attiva, o non è loggato. Nessun pulsante.
 
                 // Prepara l'HTML per il pannello partecipanti
                 const participantPanelId = `participants-${mission.name.replace(/\s+/g, '-')}`;
@@ -946,9 +927,6 @@
                 </div>`;
             });
         }
-        // ===================================================================================
-        // FINE MODIFICA
-        // ===================================================================================
 
         // Renderizza la lista delle missioni nel Master Dashboard (per modifica)
         function renderManageMissionsList() {
@@ -1018,6 +996,7 @@
             else query = [mission.street, mission.city, mission.country].filter(Boolean).join(', ');
 
             if (query) {
+                // CORRETTO: URL di Google Maps per l'incorporamento
                 iframe.src = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&hl=it&z=15&output=embed`;
                 iframe.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
@@ -1036,7 +1015,7 @@
             const container = document.getElementById('active-mission-objectives');
             if (!container) return;
 
-            if (state.activeMission) {
+            if (state.activeMission && state.currentUserProfile) {
                 container.innerHTML = `
                     <h3 class="text-xl font-bold mb-4">Obiettivi di: <span class="text-indigo-500">${state.activeMission.name}</span></h3>
                     <div id="mission-objectives-container" class="space-y-4">
@@ -1044,7 +1023,11 @@
                             const percentage = Math.min((obj.progress / obj.target) * 100, 100);
                             const isCompleted = obj.progress >= obj.target;
                             // Verifica se esiste già una richiesta in coda per questo obiettivo specifico
-                            const existingRequest = MOCK_DATA.validationQueue.find(req => req.missionName === state.activeMission.name && req.objectiveText === obj.text && req.user === state.currentUserProfile?.name);
+                            const existingRequest = MOCK_DATA.validationQueue.find(req => 
+                                req.missionName === state.activeMission.name && 
+                                req.objectiveText === obj.text && 
+                                req.user === state.currentUserProfile.name
+                            );
                             const buttonDisabled = existingRequest ? 'disabled' : '';
                             const buttonText = existingRequest ? 'In attesa...' : 'Richiedi Validazione';
                             const buttonColor = existingRequest ? 'bg-slate-400' : 'bg-blue-500 hover:bg-blue-600';
@@ -1072,12 +1055,13 @@
             }
             lucide.createIcons();
         }
-
-        // ===================================================================================
-        // NUOVA FUNZIONE per renderizzare i risultati
-        // ===================================================================================
+        
+        // Renderizza i risultati delle validazioni per l'utente corrente
         function renderValidationResults() {
-            if (!state.currentUserProfile) return; // Non renderizzare se non c'è un utente
+            if (!state.currentUserProfile) {
+                document.getElementById('validation-results-container').innerHTML = ''; // Pulisci se non c'è utente
+                return; 
+            }
 
             // Filtra i risultati solo per l'utente attualmente loggato (o simulato)
             const userResults = MOCK_DATA.validationResults.filter(r => r.user === state.currentUserProfile.name);
@@ -1100,10 +1084,6 @@
                 `;
             }, "Nessun esito di validazione recente.");
         }
-        // ===================================================================================
-        // FINE NUOVA FUNZIONE
-        // ===================================================================================
-
 
         // Renderizza la coda di validazione per il Validatore
         function renderValidationQueue() {
@@ -1129,47 +1109,47 @@
                 </div>`);
         }
 
-        // ===================================================================================
-        // FUNZIONE simulateUserView CORRETTA
-        // ===================================================================================
-
         // Funzione per entrare in modalità simulazione
         function simulateUserView(role) {
             if (!state.simulatedProfileStates[role]) return; // Ruolo non valido
 
-            // !!! INIZIO CORREZIONE !!!
-            // Logica per salvare correttamente lo stato prima di cambiare
+            // SPIEGAZIONE:
+            // Stiamo per cambiare stato. Dobbiamo salvare lo stato CORRENTE
+            // prima di caricarne uno nuovo.
+
             if (state.isSimulating && state.currentSimulatedRole) {
-                // Se stiamo GIÀ simulando (passando da un ruolo all'altro),
-                // salviamo lo stato della simulazione PRECEDENTE nel suo slot.
+                // 1. Se stiamo GIÀ simulando (passando da Collaboratore a Sostenitore):
+                //    Salviamo lo stato della simulazione PRECEDENTE (Collaboratore)
+                //    nel suo slot personale (`simulatedProfileStates.Collaboratore`).
                 const prevSimState = state.simulatedProfileStates[state.currentSimulatedRole];
                 if (prevSimState) {
                     prevSimState.activeMission = state.activeMission;
                     prevSimState.currentScore = state.currentScore;
                     prevSimState.hourglasses = state.hourglasses;
-                    // N.B. totalDonations viene gestito separatamente da handleDonation
+                    // N.B. totalDonations viene già gestito separatamente
                 }
             } else if (!state.isSimulating) {
-                // Se NON stiamo simulando, questa è la prima simulazione.
-                // Salviamo lo stato REALE del Master.
+                // 2. Se NON stiamo simulando (questo è il primo click):
+                //    Salviamo lo stato REALE del Master (che è l'utente attuale)
+                //    nella cache temporanea (`masterStateCache`).
                 state.masterStateCache = {
                     activeMission: state.activeMission,
                     currentScore: state.currentScore,
                     hourglasses: state.hourglasses
                 };
             }
-            // !!! FINE CORREZIONE !!!
 
+            // Ora carichiamo lo stato del NUOVO ruolo da simulare
             state.isSimulating = true;
             state.currentSimulatedRole = role;
 
-            // Carica stato Simulato (questa parte era già corretta)
+            // Carica stato Simulato (o i suoi default se è la prima volta)
             const simState = state.simulatedProfileStates[role];
             state.activeMission = simState.activeMission;
             state.currentScore = simState.currentScore;
             state.hourglasses = simState.hourglasses;
 
-            // Aggiorna UI
+            // Aggiorna UI con i dati del NUOVO stato
             updateProgressBar();
             document.getElementById('hourglassCount').textContent = state.hourglasses;
 
@@ -1193,25 +1173,26 @@
 
         // Funzione per uscire dalla modalità simulazione
         function exitSimulation() {
-            // Salva stato Simulato corrente
+            // Salva l'ultimo stato Simulato corrente nel suo slot
             if (state.currentSimulatedRole) {
                 const simState = state.simulatedProfileStates[state.currentSimulatedRole];
                 simState.activeMission = state.activeMission;
                 simState.currentScore = state.currentScore;
                 simState.hourglasses = state.hourglasses;
-                // totalDonations è già aggiornato in handleDonation
             }
 
-            // Ripristina stato Master
+            // Ripristina lo stato del Master dalla cache
             if (state.masterStateCache) {
                 state.activeMission = state.masterStateCache.activeMission;
                 state.currentScore = state.masterStateCache.currentScore;
                 state.hourglasses = state.masterStateCache.hourglasses;
-            } else { // Fallback: resetta
+            } else { // Fallback: resetta se la cache è vuota
                 state.activeMission = null;
                 state.currentScore = 0;
                 state.hourglasses = 0;
             }
+            
+            // Pulisci tutti i flag e i dati di simulazione/profilo
             state.masterStateCache = null;
             state.currentSimulatedRole = null;
             state.currentUserProfile = null; // Rimuovi profilo mock
@@ -1230,13 +1211,14 @@
 
 
         // ===================================================================================
-        // 5. GESTORI EVENTI FORM E AZIONI UTENTE
+        // 5. GESTORI EVENTI FORM E AZIONI UTENTE (VERSIONE MOCK)
         // ===================================================================================
 
-        // Gestisce la registrazione di un nuovo utente
-        async function handleRegistration(e) {
+        // Gestisce la registrazione (fittizia)
+        function handleRegistration(e) {
             e.preventDefault();
             toggleLoader(true);
+            hideFormError('reg');
             const form = e.target;
             const name = form.elements['reg-name'].value;
             const email = form.elements['reg-email'].value;
@@ -1248,44 +1230,104 @@
                 toggleLoader(false); return;
             }
 
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-                const userDocRef = doc(db, `artifacts/${appId}/users/${user.uid}/profile/data`);
-                await setDoc(userDocRef, { name, email, role: state.registrationRole, createdAt: new Date(), totalDonations: 0 });
-                form.reset();
-                showNotification('Registrazione completata!', 'success');
-            } catch (error) {
-                const message = error.code === 'auth/email-already-in-use' ? 'Email già in uso.' : 'Registrazione fallita.';
-                showFormError('reg', message);
-            } finally {
+            // Simula la creazione dell'utente
+            state.currentUserProfile = {
+                name: name,
+                email: email,
+                role: state.registrationRole,
+                totalDonations: 0
+            };
+            
+            // Resetta lo stato per il nuovo utente
+            state.activeMission = null;
+            state.currentScore = 0;
+            state.hourglasses = 0;
+            updateProgressBar();
+            document.getElementById('hourglassCount').textContent = '0';
+            
+            updateProfileView(); // Aggiorna la UI del profilo
+            form.reset();
+            
+            // Simula un ritardo di rete
+            setTimeout(() => {
                 toggleLoader(false);
-            }
+                showNotification('Registrazione completata!', 'success');
+                showView('profile'); // Vai al profilo
+            }, 500);
         }
 
-        // Gestisce il login dell'utente
-        async function handleLogin(e) {
+        // Gestisce il login (fittizio)
+        function handleLogin(e) {
             e.preventDefault();
             toggleLoader(true);
+            hideFormError('login');
             const form = e.target;
             const email = form.elements['login-email'].value;
-            const password = form.elements['login-password'].value;
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                form.reset();
-            } catch (error) {
-                showFormError('login', 'Email o password non corretti.');
-            } finally {
-                toggleLoader(false);
+            
+            // Per questo mock-up, usiamo un nome fittizio
+            const name = "Utente Reale";
+            
+            // Simula il login
+            state.currentUserProfile = {
+                name: name, 
+                email: email,
+                role: state.loginRole,
+                totalDonations: 0 // In un'app reale, questo verrebbe caricato
+            };
+            
+            // Resetta lo stato
+            state.currentScore = 0;
+            state.hourglasses = 0;
+            updateProgressBar();
+            document.getElementById('hourglassCount').textContent = '0';
+            
+            // CONTROLLO IMPORTANTE:
+            // Controlla se questo utente fittizio ("Utente Reale") è già in una missione
+            // (come definito in MOCK_DATA.missions)
+            const activeMissionFromMock = MOCK_DATA.missions.find(m => m.participants.includes(state.currentUserProfile.name));
+            if (activeMissionFromMock) {
+                // Se trovato, imposta come missione attiva locale
+                state.activeMission = JSON.parse(JSON.stringify(activeMissionFromMock));
+            } else {
+                state.activeMission = null;
             }
+
+            updateProfileView(); // Aggiorna la UI del profilo
+            form.reset();
+            
+            // Simula un ritardo di rete
+            setTimeout(() => {
+                toggleLoader(false);
+                showNotification(`Bentornato, ${name}!`, 'success');
+                showView('profile'); // Vai al profilo
+            }, 500);
         }
 
-        // ===================================================================================
-        // MODIFICATO: handleCreateOrUpdateMissionStep1
-        // ===================================================================================
+        // Gestisce il logout (fittizio)
+        function handleLogout() {
+            toggleLoader(true);
+            stopMissionTimer();
+            
+            // Resetta tutto lo stato dell'utente
+            state.currentUserProfile = null;
+            state.activeMission = null;
+            state.currentScore = 0;
+            state.hourglasses = 0;
+            
+            updateProgressBar();
+            document.getElementById('hourglassCount').textContent = '0';
+            
+            // Simula un ritardo
+            setTimeout(() => {
+                toggleLoader(false);
+                showView('home'); // Torna alla home
+            }, 300);
+        }
+
         // Gestisce il primo step della creazione/modifica missione
         function handleCreateOrUpdateMissionStep1(e) {
             e.preventDefault();
+            hideFormError('mission-step1');
             const form = e.target;
             const name = form.elements['mission-name'].value.trim();
             const description = form.elements['mission-description'].value.trim();
@@ -1294,23 +1336,20 @@
             const street = form.elements['mission-street'].value.trim();
             const city = form.elements['mission-city'].value.trim();
             const country = form.elements['mission-country'].value.trim();
-            // NUOVA LETTURA
             const maxUsers = parseInt(form.elements['mission-max-users'].value) || 1;
 
             if(!name || !description || ((!lat || !lon) && (!street || !city))) {
                 showFormError('mission-step1', 'Compila nome, descrizione e un indirizzo o coordinate.');
                 return;
             }
-            // Nascondi l'errore se i campi sono validi
-            document.getElementById('mission-step1-error').classList.add('hidden');
 
             const missionData = {
                 name, description,
                 color: form.elements['mission-color'].value,
                 lat: parseFloat(lat) || null, lon: parseFloat(lon) || null,
                 street, city, country, status: 'available',
-                maxUsers: maxUsers, // <-- AGGIUNTO
-                participants: state.editingMissionBuffer?.participants || [], // <-- AGGIUNTO (preserva partecipanti in modifica)
+                maxUsers: maxUsers,
+                participants: state.editingMissionBuffer?.participants || [], // Preserva partecipanti
                 objectives: state.editingMissionBuffer?.objectives || []
             };
 
@@ -1321,9 +1360,6 @@
             renderNewMissionObjectives();
             showView('create-mission-step2');
         }
-        // ===================================================================================
-        // FINE MODIFICA
-        // ===================================================================================
 
         // Aggiunge un obiettivo during la creazione/modifica missione
         function handleAddObjective(e) {
@@ -1332,7 +1368,8 @@
             const input = document.getElementById('objective-text');
             const text = input.value.trim();
             if (text && buffer) {
-                buffer.objectives.push({ id: Date.now(), text: text, progress: 0, target: 10, points: 5 }); // Target e punti di default
+                // Assegna target e punti di default
+                buffer.objectives.push({ id: Date.now(), text: text, progress: 0, target: 1, points: 10 }); 
                 renderNewMissionObjectives();
                 input.value = '';
             }
@@ -1354,7 +1391,7 @@
             }
         }
 
-        // Salva la missione creata/modificata
+        // Salva la missione creata/modificata nel MOCK_DATA
         function handleSaveMission() {
             let missionName = '';
             if (state.editingMissionBuffer) {
@@ -1390,15 +1427,17 @@
             if (amount > 0) {
                 toggleLoader(true);
 
-                // 1. Aggiorna totale globale
+                // 1. Aggiorna totale globale (nel MOCK_DATA)
                 MOCK_DATA.globalDonationTotal += amount;
                 document.getElementById('donatedCredit').textContent = MOCK_DATA.globalDonationTotal.toLocaleString('it-IT') + ' €';
 
-                // 2. Aggiorna profilo utente (reale o simulato)
+                // 2. Aggiorna profilo utente (reale fittizio o simulato)
                 let profileToUpdate = null;
                 if (state.isSimulating && state.currentSimulatedRole) {
+                    // Se sto simulando, aggiorno lo stato persistente della simulazione
                     profileToUpdate = state.simulatedProfileStates[state.currentSimulatedRole];
                 } else if (state.currentUserProfile) {
+                    // Se sono un utente "reale" fittizio, aggiorno il mio profilo
                     profileToUpdate = state.currentUserProfile;
                 }
 
@@ -1412,16 +1451,14 @@
                     showNotification(`Grazie per la tua donazione di ${amount.toLocaleString('it-IT')} €!`, 'success');
                     amountInput.value = '';
 
-                    // Aggiorna la vista profilo SOLO se è quella attiva
+                    // Aggiorna la vista profilo (se è quella attiva)
                     if (document.getElementById('profile').classList.contains('active')) {
-                         updateProfileView(state.currentUserProfile); // Passa il profilo corrente (reale o mock)
+                         updateProfileView(state.currentUserProfile);
                     }
 
-                    // Se loggato, torna al profilo
-                    if (state.currentUserProfile && !state.isSimulating) {
+                    // Se loggato (fittiziamente), torna al profilo
+                    if (state.currentUserProfile) {
                        showView('profile');
-                    } else if (state.isSimulating) {
-                       showView('profile'); // Resta sul profilo simulato
                     }
 
                 }, 1000);
@@ -1430,35 +1467,14 @@
             }
         }
 
-        // Gestisce il logout
-        async function handleLogout() {
-            toggleLoader(true);
-            try {
-                stopMissionTimer();
-                // NOTA: Il logout NON rimuove l'utente da una missione
-                // state.activeMission = null; // Rimuoviamo solo lo stato attivo locale
-                state.currentScore = 0;
-                state.hourglasses = 0;
-                await signOut(auth);
-                await signInAnonymously(auth); // Ritorna anonimo
-            } catch (error) {
-                console.error("Errore logout:", error);
-            } finally {
-                toggleLoader(false);
-            }
-        }
-
         // ===================================================================================
         // 6. INIZIALIZZAZIONE DELL'APP ED EVENT LISTENER GLOBALE
         // ===================================================================================
 
-        async function startApp() {
+        function startApp() {
             // Imposta totale donazioni globale iniziale
             document.getElementById('donatedCredit').textContent = MOCK_DATA.globalDonationTotal.toLocaleString('it-IT') + ' €';
 
-            // ===================================================================================
-            // MODIFICATO: Event Listener Globale
-            // ===================================================================================
             // Listener di eventi delegato sull'intero container dell'app
             document.getElementById('app-container').addEventListener('click', (e) => {
                 const target = e.target; // Elemento cliccato
@@ -1471,7 +1487,7 @@
                 const acceptMissionButton = target.closest('.accept-mission-btn');
                 const removeObjectiveBtn = target.closest('.remove-objective-btn');
                 const toggleDetailsButton = target.closest('.toggle-details-btn');
-                const toggleParticipantsButton = target.closest('.toggle-participants-btn'); // <-- NUOVO
+                const toggleParticipantsButton = target.closest('.toggle-participants-btn');
                 const editMissionBtn = target.closest('.edit-mission-btn');
                 const interruptMissionBtn = target.closest('#interrupt-mission-btn');
                 const advanceCommonObjectiveBtn = target.closest('.advance-common-objective-btn');
@@ -1527,11 +1543,8 @@
                         detailsPanel.classList.toggle('open');
                     }
                 }
-
-                // ======================================================
-                // NUOVO HANDLER: Apri/chiudi pannello partecipanti
-                // ======================================================
-                if (toggleParticipantsButton) { 
+                
+                if (toggleParticipantsButton) { // Apri/chiudi pannello partecipanti
                     const missionName = toggleParticipantsButton.dataset.missionName;
                     const participantsPanel = document.getElementById(`participants-${missionName.replace(/\s+/g, '-')}`);
                     if (participantsPanel) {
@@ -1541,7 +1554,6 @@
                         participantsPanel.classList.toggle('open');
                     }
                 }
-                // ======================================================
 
                 if (editMissionBtn) { // Pre-compila form per modifica missione
                     const missionToEdit = MOCK_DATA.missions.find(m => m.name === editMissionBtn.dataset.missionName);
@@ -1559,16 +1571,12 @@
                         form.elements['mission-city'].value = missionToEdit.city || '';
                         form.elements['mission-country'].value = missionToEdit.country || '';
                         form.elements['mission-color'].value = missionToEdit.color || 'indigo';
-                        form.elements['mission-max-users'].value = missionToEdit.maxUsers || 1; // <-- AGGIUNTO
+                        form.elements['mission-max-users'].value = missionToEdit.maxUsers || 1; 
                         showView('create-mission-step1');
                     }
                 }
-
-                // ======================================================
-                // MODIFICATO: Handler Interrompi Missione
-                // ======================================================
+                
                 if (interruptMissionBtn && state.activeMission) { // Interrompi missione
-                    
                     // Trova la missione originale nel MOCK_DATA
                     const missionInMock = MOCK_DATA.missions.find(m => m.name === state.activeMission.name);
                     
@@ -1583,46 +1591,35 @@
                     renderMissionList(); // Aggiorna la lista (mostrerà lo slot libero)
                     showView('pianifica');
                 }
-                // ======================================================
 
                 if (viewOnMapButton) { // Visualizza su mappa
                     const mission = MOCK_DATA.missions.find(m => m.name === viewOnMapButton.dataset.missionName);
                     if (mission) updateMapLocation(mission);
                 }
-
-                // ======================================================
-                // MODIFICATO: Handler Accetta Missione
-                // ======================================================
+                
                 if (acceptMissionButton && !state.activeMission) { // Accetta missione
                     // Trova la missione originale in MOCK_DATA
                     const mission = MOCK_DATA.missions.find(m => m.name === acceptMissionButton.dataset.missionName);
                     
-                    // Controlla che la missione esista e non sia piena
-                    if (mission && mission.participants.length < mission.maxUsers) {
+                    // Controlla che la missione esista, non sia piena e ci sia un utente
+                    if (mission && state.currentUserProfile && mission.participants.length < mission.maxUsers) {
                         
                         // Aggiungi l'utente alla lista partecipanti nel MOCK_DATA
-                        if (state.currentUserProfile) {
-                            mission.participants.push(state.currentUserProfile.name);
-                        } else {
-                            // Fallback (non dovrebbe succedere se loggato)
-                            mission.participants.push('Utente Sconosciuto'); 
-                        }
+                        mission.participants.push(state.currentUserProfile.name);
 
                         // Crea la copia locale per lo stato attivo dell'utente
                         state.activeMission = JSON.parse(JSON.stringify(mission)); 
                         state.activeMission.missionStartTime = Date.now();
                         state.activeMission.initialRewardClaimed = false;
                         
-                        renderMissionList(); // Aggiorna la vista corrente per mostrare "VAI" e nascondere "ACCETTA"
+                        renderMissionList(); // Aggiorna la vista corrente
                         startMissionTimer();
                         showNotification(`Missione "${mission.name}" accettata!`);
                     
-                    } else if (mission) {
-                        // Missione piena (la UI dovrebbe già prevenirlo, ma è una sicurezza)
+                    } else if (mission && mission.participants.length >= mission.maxUsers) {
                         showNotification(`La missione "${mission.name}" è al completo.`, 'error');
                     }
                 }
-                // ======================================================
 
                 if (removeObjectiveBtn) { // Rimuovi obiettivo da buffer creazione/modifica
                     const buffer = state.editingMissionBuffer || state.newMissionBuffer;
@@ -1633,7 +1630,7 @@
                 }
 
                 if (requestValidationBtn && state.activeMission && state.currentUserProfile) { // Richiedi validazione (Collaboratore)
-                    const userName = state.currentUserProfile.name; // Usa il nome del profilo corrente (reale o mock)
+                    const userName = state.currentUserProfile.name; // Usa il nome del profilo corrente
                     MOCK_DATA.validationQueue.push({
                         id: Date.now(), missionName: state.activeMission.name,
                         objectiveText: requestValidationBtn.dataset.objectiveText, user: userName
@@ -1651,10 +1648,19 @@
                          const request = MOCK_DATA.validationQueue.splice(requestIndex, 1)[0];
                          let profileStateToUpdate = null; 
 
+                         // Controlla se l'utente è un utente simulato
                          if (request.user.startsWith('Utente ')) { 
                              const role = request.user.split(' ')[1];
                              profileStateToUpdate = state.simulatedProfileStates[role];
                          } 
+                         // Aggiungi un else if per l'utente "reale" fittizio
+                         else if (state.currentUserProfile && request.user === state.currentUserProfile.name && state.isSimulating) {
+                             // Questo è improbabile (validatore che approva se stesso?)
+                             // Ma se il validatore è "Utente Reale", e la richiesta è di "Utente Reale"
+                             // NON DOVREBBE SUCCEDERE, i validatori non fanno missioni
+                         }
+                         // L'utente "reale" fittizio non è un simulatore, quindi non può essere "Utente Collaboratore"
+                         // La logica si concentra correttamente sugli stati simulati.
 
                          if (profileStateToUpdate && profileStateToUpdate.activeMission?.name === request.missionName) {
                              const objective = profileStateToUpdate.activeMission.objectives.find(o => o.text === request.objectiveText && o.progress < o.target);
@@ -1662,17 +1668,17 @@
                                 objective.progress += 1; // Avanza progresso
                                 const pointsToAdd = (objective.points / objective.target); // Calcola punti
                                 
-                                // Aggiorna lo stato del profilo (punteggio e clessidre)
+                                // Aggiorna lo stato del PROFILO SIMULATO (punteggio e clessidre)
                                 profileStateToUpdate.currentScore += pointsToAdd; 
                                 if (profileStateToUpdate.currentScore >= 60) { 
                                     profileStateToUpdate.hourglasses += Math.floor(profileStateToUpdate.currentScore / 60);
                                     profileStateToUpdate.currentScore %= 60;
                                 }
 
-                                // NUOVO: Aggiungi al log dei risultati
+                                // Aggiungi al log dei risultati
                                 MOCK_DATA.validationResults.push({
                                     id: Date.now(),
-                                    user: request.user,
+                                    user: request.user, // Il nome dell'utente simulato
                                     objectiveText: request.objectiveText,
                                     status: 'approved',
                                     points: pointsToAdd
@@ -1690,8 +1696,8 @@
                     if (requestIndex > -1) {
                          const request = MOCK_DATA.validationQueue.splice(requestIndex, 1)[0];
                          
-                         // Riabilita il pulsante per il collaboratore (se è in quella vista)
-                         if(state.isSimulating && state.currentSimulatedRole === 'Collaboratore' && document.getElementById('missione-in-corso').classList.contains('active')) {
+                         // Riabilita il pulsante per il collaboratore (se il Master sta simulando quel collaboratore)
+                         if(state.isSimulating && `Utente ${state.currentSimulatedRole}` === request.user && document.getElementById('missione-in-corso').classList.contains('active')) {
                              const objectiveButton = document.querySelector(`.request-validation-btn[data-objective-text="${request.objectiveText}"]`);
                              if(objectiveButton) {
                                  objectiveButton.textContent = 'Richiedi Validazione';
@@ -1701,7 +1707,7 @@
                              }
                          }
 
-                         // NUOVO: Aggiungi al log dei risultati
+                         // Aggiungi al log dei risultati
                          MOCK_DATA.validationResults.push({
                             id: Date.now(),
                             user: request.user,
@@ -1715,12 +1721,12 @@
                     }
                 }
                 
-                if (dismissResultBtn) {
+                if (dismissResultBtn) { // Rimuovi notifica risultato
                     const resultId = parseInt(dismissResultBtn.dataset.resultId);
                     const index = MOCK_DATA.validationResults.findIndex(r => r.id === resultId);
                     if (index > -1) {
                         MOCK_DATA.validationResults.splice(index, 1);
-                        renderValidationResults(); // Ri-renderizza solo la lista dei risultati
+                        renderValidationResults();
                     }
                 }
 
@@ -1742,9 +1748,6 @@
                     simulateUserView(simulateButton.dataset.simulateRole);
                 }
             });
-            // ===================================================================================
-            // FINE MODIFICA Event Listener
-            // ===================================================================================
 
 
             // Associa i gestori principali ai form e pulsanti globali
@@ -1759,66 +1762,15 @@
             document.getElementById('master-logout-btn').addEventListener('click', handleLogout); // Logout anche da master
             document.getElementById('exit-simulation-btn').addEventListener('click', exitSimulation);
 
-            // Renderizza le liste iniziali
+            // Renderizza le liste statiche iniziali
             renderList('nft-list', MOCK_DATA.nfts, nft => `<button data-nft-id="${nft.id}" class="w-full text-left p-3 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-4"><div class="w-10 h-10 ${nft.color} rounded-lg flex-shrink-0"></div><div><p class="font-semibold">${nft.name}</p><p class="text-xs text-slate-500">${nft.tokenId}</p></div></button>`);
             renderList('donations-list-container', MOCK_DATA.donations, d => `<div class="p-4 bg-slate-100 dark:bg-slate-700/50 rounded-xl flex items-center gap-4"><i data-lucide="${d.icon}" class="w-8 h-8 text-indigo-500 flex-shrink-0"></i><div><p class="font-bold">${d.name} <span class="text-sm font-normal text-slate-500">(x${d.quantity})</span></p><p class="text-sm text-slate-600 dark:text-slate-400">${d.description}</p></div></div>`);
-            // renderMissionList(); // Rimossa da qui, ora viene chiamata da showView('home') o showView('pianifica')
             renderActivityLog();
 
-            // Gestore stato autenticazione Firebase
-            onAuthStateChanged(auth, async (user) => {
-                toggleLoader(true);
-                state.isSimulating = false; // Esci da simulazione se cambia utente
-                state.currentUserProfile = null; // Resetta profilo
-                state.activeMission = null; state.currentScore = 0; state.hourglasses = 0; // Resetta stato
-                updateProgressBar(); document.getElementById('hourglassCount').textContent = '0'; // Resetta UI stato
-
-                // Gestisci UI simulazione
-                document.getElementById('logout-btn').classList.remove('hidden');
-                document.getElementById('exit-simulation-btn').classList.add('hidden');
-                document.getElementById('simulation-notice').classList.add('hidden');
-
-                if (user && !user.isAnonymous) { // Utente loggato
-                    
-                    // --- Inserimento Mock per testare senza DB ---
-                    // Simula un profilo fittizio per il login (da rimuovere in produzione)
-                    state.currentUserProfile = { 
-                        name: "Utente Reale", 
-                        email: user.email, 
-                        role: state.loginRole || 'Collaboratore', // Usa il ruolo scelto al login o default
-                        totalDonations: 0 
-                    };
-                    // --- Fine Mock ---
-
-                    // Dopo aver creato il mock, controlla se è ancora partecipante a una missione
-                    const activeMissionFromMock = MOCK_DATA.missions.find(m => m.participants.includes(state.currentUserProfile.name));
-                    if (activeMissionFromMock) {
-                        // Se trovato, imposta come missione attiva locale
-                        state.activeMission = JSON.parse(JSON.stringify(activeMissionFromMock));
-                        // Nota: non avviamo il timer qui, ma in 'missione-accettata'
-                    }
-                    
-                    if (state.currentUserProfile) {
-                        updateProfileView(); // Aggiorna la vista profilo
-                        showView('profile');
-                    } else { // Profilo non trovato? Torna a home
-                         await handleLogout(); // Forza logout se il profilo non esiste
-                    }
-                } else { // Utente anonimo o sloggato
-                    state.currentUserProfile = null;
-                    showView('home');
-                }
-                toggleLoader(false);
-            });
-
-            // Autenticazione iniziale anonima (se non già loggato)
-            try {
-                if (!auth.currentUser) await signInAnonymously(auth);
-            } catch (error) {
-                console.error("Errore accesso anonimo:", error);
-            } finally {
-                 toggleLoader(false); // Nascondi loader in ogni caso dopo il tentativo iniziale
-            }
+            // Rimosso onAuthStateChanged. L'app ora parte sempre dalla home.
+            // Nasconde il loader e mostra la home
+            toggleLoader(false);
+            showView('home');
         }
 
         // Avvia l'app quando il DOM è pronto
@@ -1827,4 +1779,3 @@
     </script>
 </body>
 </html>
-
