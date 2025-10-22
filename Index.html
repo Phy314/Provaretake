@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -131,7 +131,8 @@
                         <i data-lucide="shield-check" class="w-5 h-5"></i> Validatore
                     </button>
                     <hr class="my-6 border-slate-200 dark:border-slate-700">
-                    <button data-view="master-dashboard" class="w-full border-2 border-slate-500 text-slate-500 hover:bg-slate-500 hover:text-white font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2">
+                    <!-- MODIFICATO: Aggiunto id="master-dashboard-btn" e la classe "hidden" -->
+                    <button id="master-dashboard-btn" data-view="master-dashboard" class="hidden w-full border-2 border-slate-500 text-slate-500 hover:bg-slate-500 hover:text-white font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2">
                         <i data-lucide="eye" class="w-5 h-5"></i> Accesso Master (Solo Visione)
                     </button>
                 </div>
@@ -505,26 +506,12 @@
         // ===================================================================================
         // 1. CONFIGURAZIONE E INIZIALIZZAZIONE GLOBALE
         // ===================================================================================
+        <!-- ===================================================================================
+        // INSERISCI IL TUO ID TELEGRAM DA MASTER QUI
+        // ===================================================================================
+        const MASTER_TELEGRAM_ID = 242942826; // <--- SOSTITUISCI CON IL TUO ID NUMERICO
+        // ===================================================================================
 
-        const localFirebaseConfig = {
-            apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            authDomain: "project-id.firebaseapp.com",
-            projectId: "project-id",
-            storageBucket: "project-id.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abcdef1234567890abcdef"
-        };
-
-        const firebaseConfig = typeof __firebase_config !== 'undefined' && __firebase_config
-            ? JSON.parse(__firebase_config)
-            : localFirebaseConfig;
-
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-
-        const firebaseApp = initializeApp(firebaseConfig);
-        const auth = getAuth(firebaseApp);
-        const db = getFirestore(firebaseApp);
-        setLogLevel('debug');
 
         // ===================================================================================
         // ESEMPIO INTEGRAZIONE TELEGRAM
@@ -540,18 +527,32 @@
         // Questo è il tuo "User ID" e molto altro!
         const telegramUser = tg.initDataUnsafe?.user;
         
-        if (telegramUser) {
+        // Seleziona il pulsante Master
+        const masterButton = document.getElementById('master-dashboard-btn');
+
+        if (telegramUser && masterButton) {
             console.log("Dati utente Telegram:", telegramUser);
             console.log("ID Utente:", telegramUser.id); // <-- ECCO IL TUO USER ID
             console.log("Nome:", telegramUser.first_name);
+            
+            // --- CONTROLLO ACCESSO MASTER ---
+            if (telegramUser.id === MASTER_TELEGRAM_ID) {
+                console.log("Accesso MASTER consentito.");
+                masterButton.classList.remove('hidden'); // Mostra il pulsante
+            } else {
+                console.log("Accesso MASTER rifiutato.");
+                masterButton.classList.add('hidden'); // Nascondi il pulsante
+            }
+            // --- FINE CONTROLLO ---
             
             // --- ESEMPIO AVANZATO ---
             // Potresti usare questi dati per un "login automatico"
             // Se l'utente Telegram esiste, potresti saltare la schermata di login/registrazione
             // e creare o recuperare un profilo basato sul telegramUser.id
             // Per ora, lo mostriamo solo in console.
-        } else {
+        } else if (masterButton) {
             console.log("Nessun dato utente Telegram. L'app è aperta fuori da Telegram?");
+            masterButton.classList.add('hidden'); // Nascondi se fuori da Telegram
         }
         // ===================================================================================
         // FINE INTEGRAZIONE TELEGRAM
@@ -1826,3 +1827,4 @@
     </script>
 </body>
 </html>
+
